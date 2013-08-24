@@ -23,6 +23,14 @@ int checkAlign(int i){
   int tb = topback(i);
   int bf = bottomfront(i);
   int bb = bottomback(i);
+  int ltf = left(top(front(i)));
+  int ltb = left(top(back(i)));
+  int lbf = left(bottom(front(i)));
+  int lbb = left(bottom(back(i)));
+  int rtf = right(top(front(i)));
+  int rtb = right(top(back(i)));
+  int rbf = right(bottom(front(i)));
+  int rbb = right(bottom(back(i)));
   
   if(left!=-1 && right!=-1){
     int isAligned = isAligned(i,left,right);
@@ -55,13 +63,37 @@ int checkAlign(int i){
     }
   }
   if(tf!=-1 && bb!=-1){
-    int isAligned = isAligned(i,lf,rb);
+    int isAligned = isAligned(i,tf,bb);
     if(isAligned!=0){
       return isAligned;
     }
   }
   if(tb!=-1 && bf!=-1){
-    int isAligned = isAligned(i,lf,rb);
+    int isAligned = isAligned(i,tb,bf);
+    if(isAligned!=0){
+      return isAligned;
+    }
+  }
+  if(ltf!=-1 && rbb!=-1){
+    int isAligned = isAligned(i,ltf,rbb);
+    if(isAligned!=0){
+      return isAligned;
+    }
+  }
+  if(ltb!=-1 && rbf!=-1){
+    int isAligned = isAligned(i,ltb,rbf);
+    if(isAligned!=0){
+      return isAligned;
+    }
+  }
+  if(lbf!=-1 && rtb!=-1){
+    int isAligned = isAligned(i,lbf,rtb);
+    if(isAligned!=0){
+      return isAligned;
+    }
+  }
+  if(lbb!=-1 && rtf!=-1){
+    int isAligned = isAligned(i,lbb,rtf);
     if(isAligned!=0){
       return isAligned;
     }
@@ -93,6 +125,9 @@ void changeColor(int i,int a,int b){
 }
 
 int left(int a){
+  if(a==-1){
+    return -1;
+  }
   if(a%3!=0){
     return a-1;
   }else{
@@ -101,6 +136,9 @@ int left(int a){
 }
 
 int right(int a){
+  if(a==-1){
+    return -1;
+  }
   if(a%3!=2){
     return a+1;
   }else{
@@ -109,6 +147,9 @@ int right(int a){
 }
 
 int front(int a){
+  if(a==-1){
+    return -1;
+  }
   if(a%9>=3){
     return a-3;
   }else{
@@ -117,6 +158,9 @@ int front(int a){
 }
 
 int back(int a){
+  if(a==-1){
+    return -1;
+  }
   if(a%9<6){
     return a+3;
   }else{
@@ -125,6 +169,9 @@ int back(int a){
 }
 
 int top(int a){
+  if(a==-1){
+    return -1;
+  }
   if(a>=9){
     return a-9;
   }else{
@@ -133,6 +180,9 @@ int top(int a){
 }
 
 int bottom(int a){
+  if(a==-1){
+    return -1;
+  }
   if(a<18){
     return a+9;
   }else{
@@ -141,66 +191,34 @@ int bottom(int a){
 }
 
 int leftfront(int a){
-  if(a%9<3 || a%3==0){
-    return -1;
-  }else{
-    return a-4;
-  }
+  return left(front(a));
 }
 
 int rightfront(int a){
-  if(a%9<3 || a%3==2){
-    return -1;
-  }else{
-    return a-2;
-  }
+  return right(front(a));
 }
 
 int leftback(int a){
-  if(a%9>=6 || a%3==0){
-    return -1;
-  }else{
-    return a+2;
-  }
+  return left(back(a));
 }
 
 int rightback(int a){
-  if(a%9>=6 || a%3==2){
-    return -1;
-  }else{
-    return a+4;
-  }
+  return right(back(a));
 }
 
 int topfront(int a){
-  if(a<9 || a%9<3){
-    return -1;
-  }else{
-    return a-12;
-  }
+  return top(front(a));
 }
 
 int topback(int a){
-  if(a<9 || a%9>=6){
-    return -1;
-  }else{
-    return a-6;
-  }
+  return top(back(a));
 }
 
 int bottomfront(int a){
-  if(a>=18 || a%9<3){
-    return -1;
-  }else{
-    return a+6;
-  }
+  return bottom(front(a));
 }
 
 int bottomback(int a){
-  if(a>=18 || a%9>=6){
-    return -1;
-  }else{
-    return a+12;
-  }
+  return bottom(back(a));
 }
 

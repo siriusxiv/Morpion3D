@@ -8,10 +8,13 @@ void draw(){
   background(255);
   for(Square s : squares){
     s.draw();
-    if(finished()==0){
+    int finished;
+    if((finished=finished())==0){
       s.isSelected();
     }else{
-      text("FIN",width/2,height/2);
+      fill(0,0,255);
+      textAlign(CENTER,CENTER);
+      text("Player "+finished+" wins!",width/2,height/2);
     }
   }
   mousePrevioulyPressed=mousePressed;
